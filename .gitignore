@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 /Resonite
+/References
+MonkeyLoader.ModTemplate.PrePatcher/NuGet.config

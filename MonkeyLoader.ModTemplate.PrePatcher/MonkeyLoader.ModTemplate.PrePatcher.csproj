@@ -1,18 +1,72 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Output paths must be defined before Microsoft.Common.props import -->
   <PropertyGroup>
-    <AssemblyTitle>MonkeyLoader.ModTemplate.PrePatcher</AssemblyTitle>
-    <RootNamespace>MonkeyLoader.ModTemplate</RootNamespace>
+    <BaseOutputPath>bin\MonkeyLoader</BaseOutputPath>
+    <BaseIntermediateOutputPath>obj\MonkeyLoader</BaseIntermediateOutputPath>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <StartArguments>-Screen</StartArguments>
+    <VariantSuffix>MonkeyLoader</VariantSuffix>
+    
+    <AssemblyName>StartupSounds</AssemblyName>
+    <RootNamespace>StartupSounds</RootNamespace>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    
+    <!-- Define path to Resonite folder -->
+    <ResonitePath>G:\SteamLibrary\steamapps\common\Resonite</ResonitePath>
+    
+    <!-- NuGet Package Metadata -->
+    <Version>1.0.0-beta</Version>
+    <Authors>dfgHiatus (ported by MonkeModding)</Authors>
+    <Description>Play custom sounds when the game starts up!</Description>
+    <PackageId>StartupSounds</PackageId>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    
+    <!-- Package Output Path -->
+    <BuildOutputTargetFolder>lib\pre-patchers</BuildOutputTargetFolder>
+    
+    <!-- Include README -->
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- Disable automatic assembly attribute generation -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- Specify the correct output path for the assembly -->
+  <Target Name="SetNuGetOutputPath" BeforeTargets="GenerateNuspec">
+    <PropertyGroup>
+      <BuildOutputTargetFolder>lib\pre-patchers</BuildOutputTargetFolder>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="MovePack" AfterTargets="Pack">
+    <Exec Condition="$([MSBuild]::IsOSPlatform('Windows'))" Command="copy /Y &quot;$(OutputPath)\..\$(AssemblyName).$(Version).nupkg&quot; &quot;$(ResonitePath)\MonkeyLoader\Mods\$(AssemblyName).nupkg&quot;" />
+    <Exec Condition="$([MSBuild]::IsOSPlatform('Linux'))" Command="cp -f &quot;$(OutputPath)/../$(AssemblyName).$(Version).nupkg&quot; &quot;$(ResonitePath)/MonkeyLoader/Mods/$(AssemblyName).nupkg&quot;" />
+  </Target>
   
   <ItemGroup>
-    <PackageReference Include="MonkeyLoader" Version="0.19.0-beta" />
-    <!-- Prevent automatically referencing all DLLs from the Game Pack -->
-    <PackageReference Include="MonkeyLoader.GamePacks.Resonite" Version="0.16.6-beta" ExcludeAssets="compile; build; runtime; native" GeneratePathProperty="true" />
+    <PackageReference Include="ManagedBass" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="MonkeyLoader" Version="0.17.4-beta" />
+    <PackageReference Include="MonkeyLoader.GamePacks.Resonite" Version="0.16.6-beta" />
     <PackageReference Include="PolySharp" Version="1.14.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Text.Json" Version="8.0.4">
+    <!-- Using a more secure version of System.Text.Json -->
+    <PackageReference Include="System.Text.Json" Version="9.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -22,6 +76,23 @@
     <!-- Reference only the pre-patcher assembly from the Game Pack -->
     <Reference Include="MonkeyLoader.Resonite.Data">
       <HintPath>$(PkgMonkeyLoader_GamePacks_Resonite)\lib\net462\pre-patchers\MonkeyLoader.Resonite.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MonkeyLoader.Configuration">
+      <HintPath>$(PkgMonkeyLoader)\lib\net462\MonkeyLoader.Configuration.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="bass">
+      <HintPath>$(ResonitePath)\bass.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ManagedBass">
+      <HintPath>$(ResonitePath)\ManagedBass.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(ResonitePath)\rml_libs\0Harmony.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
