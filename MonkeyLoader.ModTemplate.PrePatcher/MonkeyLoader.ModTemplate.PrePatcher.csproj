@@ -77,9 +77,6 @@
     <Reference Include="MonkeyLoader.Resonite.Data">
       <HintPath>$(PkgMonkeyLoader_GamePacks_Resonite)\lib\net462\pre-patchers\MonkeyLoader.Resonite.Data.dll</HintPath>
     </Reference>
-    <Reference Include="MonkeyLoader.Configuration">
-      <HintPath>$(PkgMonkeyLoader)\lib\net462\MonkeyLoader.Configuration.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

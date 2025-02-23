@@ -24,7 +24,7 @@ namespace StartupSounds
         private const int PHASE_SOUND_COOLDOWN = 300;
         private const int POLLING_INTERVAL = 20;
 
-        private static readonly string baseSoundsPath = Path.Combine("MonkeyLoader", "Mods", "StartupSounds", "sounds");
+        private static readonly string baseSoundsPath = Path.Combine("MonkeyLoader", "Mods", "StartupSounds");
         private static readonly string[] soundFolders = { "done", "launch", "loading", "phase" };
         private static readonly string[] supportedExtensions = { "*.wav", "*.flac", "*.ogg", "*.mp3" };
         private static readonly Random random = new Random();

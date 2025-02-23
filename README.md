@@ -1,38 +1,39 @@
-# StartupSounds for Resonite
+# StartupSounds for Resonite 🎵
 
-A MonkeyLoader mod that plays custom sounds when Resonite starts up! 🎵
+A MonkeyLoader mod that enhances your Resonite startup experience with custom sounds! Plays different sounds during launch, loading, and startup phases.
 
 ## Features
-- Plays custom sounds during different game phases
-- Supports multiple audio formats:
-  - WAV
-  - FLAC
-  - OGG
-  - MP3
+
+- **Launch Sound**: Plays when the game first starts
+- **Loading Sound**: Smooth crossfade from launch to loading sound
+- **Phase Sounds**: Random sounds during engine initialization phases (first 40 phases)
+- **Done Sound**: Plays when loading is complete
+- **Smart Sound Management**:
+  - Smooth crossfading between sounds
+  - Cooldown system to prevent sound spam
+  - Automatic cleanup of sound resources
+
+## Supported Audio Formats
+- WAV
+- FLAC
+- OGG
+- MP3
 
 ## Installation
+
 1. Install [MonkeyLoader](https://github.com/MonkeyModdingTroop/MonkeyLoader)
-2. Place the `StartupSounds.nupkg` in your `Resonite/MonkeyLoader/Mods` folder
-3. The mod will create these folders automatically:
-   ```
-   Resonite/MonkeyLoader/Mods/StartupSounds/sounds/
-   ├── done/         # Sounds for when loading is complete
-   ├── launch/       # Sounds played at game launch
-   ├── loading/      # Sounds during loading
-   └── phase/        # Sounds for phase transitions
-   ```
-4. Add your audio files to the appropriate folders
+2. Place `StartupSounds.nupkg` in your `Resonite/MonkeyLoader/Mods` folder
+3. The mod will create the following sound folders, where you can add your audio files:
 
-## Usage
-Place your sound files in the appropriate folders:
-- `launch/` - Sounds that play when the game starts
-- `loading/` - Sounds during the loading process
-- `phase/` - Sounds for different loading phases
-- `done/` - Sounds when loading is complete
-
-The mod will randomly select and play sounds from these folders at the appropriate times!
+```
+Resonite/MonkeyLoader/Mods/StartupSounds/
+├── launch/   # First sound when starting Resonite
+├── loading/  # Background music during the loading process
+├── phase/    # Short sounds during initialization (for every phase until 40)
+└── done/     # Final sound when Resonite is ready
+```
 
 ## Credits
-- Original mod by dfgHiatus
-- Ported to MonkeyLoader by MonkeModding
-- Uses [ManagedBass](https://github.com/ManagedBass/ManagedBass) for audio playback 
+- [Original mod](https://github.com/dfgHiatus/StartupSounds) by dfgHiatus
+- Ported to MonkeyLoader by Dexy
+- Uses [ManagedBass](https://github.com/ManagedBass/ManagedBass) for audio playback and crossfading
